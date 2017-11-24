@@ -1,0 +1,27 @@
+{
+  "name": "node-chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "9.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skoval-dev/node-chat-app.git"
+  },
+  "author": "Serhii Koval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skoval-dev/node-chat-app/issues"
+  },
+  "homepage": "https://github.com/skoval-dev/node-chat-app#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
