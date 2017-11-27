@@ -16,9 +16,7 @@ let users = new Users();
 
 app.use(express.static(public_path));
 
-
 io.on('connection', (socket) => {
-   console.log("New user connected");
 
     socket.on("join", (params, callback) => {
         "use strict"
@@ -65,9 +63,6 @@ io.on('connection', (socket) => {
         }
    });
 });
-
-
-
 
 server.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
