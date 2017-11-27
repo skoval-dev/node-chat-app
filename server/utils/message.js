@@ -7,4 +7,13 @@ let generate_message = (from, text) => {
     };
 };
 
-module.exports = {generate_message}
+let generate_location_message = (from, lat, long) => {
+    "use strict"
+    return {
+        from,
+        url: `https://www.google.com/maps?q=${lat},${long}`,
+        created_at: new Date().getTime()
+    }
+};
+
+module.exports = {generate_message, generate_location_message}

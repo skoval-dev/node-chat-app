@@ -5,7 +5,7 @@ const express = require("express");
 const port = process.env.PORT || 3000;
 const socket_io = require("socket.io");
 
-const {generate_message} = require("./utils/message");
+const {generate_message, generate_location_message} = require("./utils/message");
 let app = express();
 let server = http.createServer(app);
 let io = socket_io(server);
@@ -24,6 +24,10 @@ io.on('connection', (socket) => {
         console.log("Create message: ", message);
         io.emit("new_message", generate_message(message.from, message.text));
         callback(message);
+    });
+
+    socket.on("create_location_msg", (coords) => {
+        io.emit("new_location_message", generate_location_message("Admin", coords.latitude, coords.longitude))
     });
 
    socket.on("disconnect", () => {
