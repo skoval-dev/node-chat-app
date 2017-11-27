@@ -4,12 +4,13 @@ function scroll_to_bottom () {
     //Selectors
     let messages = $("#messages");
     let new_message = messages.children("li:last-child");
+    let last_message_height = new_message.prev().innerHeight();
     //Heights
     let client_height = messages.prop("clientHeight");
     let scroll_top = messages.prop("scrollTop");
     let scroll_height = messages.prop("scrollHeight");
     let newest_message_height = new_message.innerHeight();
-    let last_message_height = new_message.prev().innerHeight();
+
 
     if((client_height + scroll_top + newest_message_height +  last_message_height) >= scroll_height){
         messages.scrollTop(scroll_height);
