@@ -1,9 +1,10 @@
+let moment = require("moment");
 let generate_message = (from, text) => {
     "use strict"
     return {
       from: from,
       text: text,
-      created_at: new Date().getTime()
+      created_at: moment().valueOf()
     };
 };
 
@@ -12,7 +13,7 @@ let generate_location_message = (from, lat, long) => {
     return {
         from,
         url: `https://www.google.com/maps?q=${lat},${long}`,
-        created_at: new Date().getTime()
+        created_at: moment().valueOf()
     }
 };
 
