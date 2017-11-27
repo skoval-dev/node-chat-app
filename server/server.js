@@ -41,13 +41,19 @@ io.on('connection', (socket) => {
     });
 
     socket.on("create_message", function(message, callback) {
-        console.log("Create message: ", message);
-        io.emit("new_message", generate_message(message.from, message.text));
+        let user = users.get_user(socket.id);
+        if(user && is_real_string(message.text)) {
+            io.to(user.room).emit("new_message", generate_message(user.name, message.text));
+        }
         callback(message);
     });
 
-    socket.on("create_location_msg", (coords) => {
-        io.emit("new_location_message", generate_location_message("Admin", coords.latitude, coords.longitude))
+    socket.on("create_location_msg", function(coords, callback) {
+        let user = users.get_user(socket.id);
+        if(user && coords) {
+            io.to(user.room).emit("new_location_message", generate_location_message(user.name, coords.latitude, coords.longitude));
+        }
+        callback();
     });
 
    socket.on("disconnect", () => {

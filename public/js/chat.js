@@ -68,7 +68,6 @@ $(document).on("submit", "#message-form", function(e) {
     if(message.val().length === 0) return false;
     button.attr("disabled", "disabled").text("Sending...");
     socket.emit("create_message", {
-        from: "User",
         text: message.val()
     }, function() {
         button.removeAttr("disabled").text("Send");
@@ -87,10 +86,11 @@ send_location.on('click', function () {
 
     navigator.geolocation.getCurrentPosition(function(position){
         "use strict"
-        send_location.removeAttr("disabled").text("Send location");
         socket.emit("create_location_msg", {
            latitude: position.coords.latitude,
            longitude: position.coords.longitude
+        }, function () {
+            send_location.removeAttr("disabled").text("Send location");
         });
     }, function () {
         send_location.removeAttr("disabled").text("Send location");
