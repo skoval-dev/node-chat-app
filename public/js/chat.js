@@ -18,7 +18,21 @@ function scroll_to_bottom () {
 }
 
 socket.on("connect", function() {
-   console.log("Connected to server!");
+   let params = $.deparam(window.location.search);
+   socket.emit("join", params, function (err) {
+        if (err) {
+            alert(err);
+            window.location.href = "/";
+        } else {
+
+        }
+   });
+});
+
+socket.on("update_user_list", function (users) {
+    let template = $("#user-template").html();
+    let html = Mustache.render(template, {users});
+    $("#users-list").html(html);
 });
 
 socket.on("new_message", function (message) {
@@ -44,10 +58,6 @@ socket.on("new_location_message", function (message) {
 
     $('#messages').append(html);
     scroll_to_bottom();
-});
-
-socket.on("disconnect", function() {
-   console.log("Disconnected from server!")
 });
 
 $(document).on("submit", "#message-form", function(e) {
@@ -86,4 +96,8 @@ send_location.on('click', function () {
         send_location.removeAttr("disabled").text("Send location");
         alert("Unable to fetch location");
     })
+});
+
+socket.on("disconnect", function() {
+    console.log("Disconnected from server!")
 });
